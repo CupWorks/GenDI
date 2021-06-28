@@ -12,7 +12,8 @@ namespace GenDI.Builder.Context
         private readonly Dictionary<string, GenericContext> _generics = new();
         private readonly List<SnippetContext> _snippets = new();
         private string? _withReturn;
-
+        private bool _withoutBody;
+        
         public IFunctionBuilder AsStatic()
         {
             _isStatic = true;
@@ -69,13 +70,21 @@ namespace GenDI.Builder.Context
             }
             
             stringBuilder.AppendParameters(_parameters);
-            
-            stringBuilder.AppendLine($"{CreateIntend(intend)}{{");
-            foreach (var snippetContext in _snippets)
+
+            if (_snippets.Count > 0)
             {
-                snippetContext.Append(stringBuilder, intend + 1);
+                stringBuilder.AppendLine();
+                stringBuilder.AppendLine($"{CreateIntend(intend)}{{");
+                foreach (var snippetContext in _snippets)
+                {
+                    snippetContext.Append(stringBuilder, intend + 1);
+                }
+                stringBuilder.AppendLine($"{CreateIntend(intend)}}}");
             }
-            stringBuilder.AppendLine($"{CreateIntend(intend)}}}");
+            else
+            {
+                stringBuilder.AppendLine(";");
+            }
         }
     }
 }

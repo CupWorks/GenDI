@@ -6,7 +6,7 @@ namespace GenDI.Builder.Context.Extension
 {
     public static class ContextExtension
     {
-        public static void AddOrCreate<T>(this Dictionary<string, T> dictionary, string name, Action<T>? builder) 
+        public static T AddOrCreate<T>(this Dictionary<string, T> dictionary, string name, Action<T>? builder) 
             where T : NameContextBase, new()
         {
             if (!dictionary.TryGetValue(name, out var context))
@@ -19,9 +19,10 @@ namespace GenDI.Builder.Context.Extension
             }
             
             builder?.Invoke(context);
+            return context;
         }
         
-        public static void AddOrCreate<T>(this Dictionary<string, NameContextBase> dictionary, string name, Action<T>? builder) 
+        public static T AddOrCreate<T>(this Dictionary<string, NameContextBase> dictionary, string name, Action<T>? builder) 
             where T : NameContextBase, new()
         {
             if (!dictionary.TryGetValue(name, out NameContextBase context))
@@ -34,6 +35,7 @@ namespace GenDI.Builder.Context.Extension
             }
             
             builder?.Invoke((T)context);
+            return (T)context;
         }
         
         public static void CreateAndAdd<T>(this List<T> list, Action<T>? builder) 

@@ -18,7 +18,7 @@ namespace GenDI.Builder.Context.Extension
                     stringBuilder.Append(", ");
                 }
             }
-            stringBuilder.AppendLine(")");
+            stringBuilder.Append(")");
         }
     }
 }

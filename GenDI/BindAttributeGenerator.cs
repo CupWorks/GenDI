@@ -7,11 +7,12 @@ using Microsoft.CodeAnalysis.Text;
 namespace GenDI
 {
     [Generator]
-    public class BindAttributeGenerator : ISourceGenerator
+    public sealed class BindAttributeGenerator : ISourceGenerator
     {
         private const string GeneratedNamespace = nameof(GenDI);
         private const string ClassName = "BindAttribute";
         private const string EnumName = "BindScope";
+        public const string FullName = GeneratedNamespace + "." + ClassName;
         
         public void Initialize(GeneratorInitializationContext context)
         {

@@ -15,6 +15,12 @@ namespace GenDI.Builder.Context
             return this;
         }
 
+        public INamespaceBuilder AddClass(string name, out IClassBuilder classBuilder)
+        {
+            classBuilder = _objects.AddOrCreate<ClassContext>(name, null);
+            return this;
+        }
+
         public INamespaceBuilder AddEnum(string name, Action<IEnumBuilder>? enumBuilder = null)
         {
             _objects.AddOrCreate<EnumContext>(name, enumBuilder);
