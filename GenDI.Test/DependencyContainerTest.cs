@@ -11,7 +11,8 @@ namespace GenDI.Test
             var container = new DependencyContainer();
             
             container.Resolve<IServiceSingle>();
-            container.Test();
+            container.ResolveServiceSingle();
+            container.ResolveServiceTransient();
             
             Assert.IsNotNull(container);
         }
